@@ -2,3 +2,4 @@
 *.tsv -text
 *.json -text
 *.md text eol=lf
+specimens/**/javac.txt -text
