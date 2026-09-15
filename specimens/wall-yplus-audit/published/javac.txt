@@ -1,0 +1,13 @@
+# javac 25.0.1 (JDK shipped with STAR-CCM+, <STAR-CCM+ install>\jdk\win64\jdk25.0.1)
+# classpath: <STAR-CCM+ install>\star\lib\java\platform\modules\ext\*  (Simcenter STAR-CCM+ 2606 Build 21.04.007)
+WallYplusAudit.java:67: error: cannot find symbol
+                Collection<NamedObject> one = Collections.<NamedObject>singletonList(b);
+                           ^
+  symbol:   class NamedObject
+  location: class WallYplusAudit
+WallYplusAudit.java:67: error: cannot find symbol
+                Collection<NamedObject> one = Collections.<NamedObject>singletonList(b);
+                                                           ^
+  symbol:   class NamedObject
+  location: class WallYplusAudit
+2 errors
