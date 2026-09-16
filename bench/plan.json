@@ -12,7 +12,7 @@
   ],
   "treatment": [
     "Q08 (Simulation, textChars 29981 en salida-d): rescatada por el tope de 50000. Pasa de 20016 entregados y truncada, a 29981 entera.",
-    "Q02 (PartManager, textChars 60780 en salida-d): NO rescatada. Pasa de 20016 a 50016 y sigue truncada. Delta de 30000, tres veces el de Q08. Es una de las 13 clases que 50000 deja fuera; el puente la daba por control porque la afirmacion 'Q08 es la unica unidad de tratamiento' se hizo sobre las etiquetas de queries.json, antes de que existiera un plan de llamadas explicito.",
+    "Q02 (PartManager, textChars 60780 en salida-d): NO rescatada. Pasa de 20016 a 50016 y sigue truncada. Delta de 30000, tres veces el de Q08. Es una de las 13 clases que 50000 deja fuera; una nota de trabajo previa la daba por control porque la afirmacion 'Q08 es la unica unidad de tratamiento' se hizo sobre las etiquetas de queries.json, antes de que existiera un plan de llamadas explicito.",
     "Las otras trece consultas son control de delta cero: ninguna de sus clases supera 20000 en salida-d. Las mayores son Report 18573, FieldFunctionManager 16176, Continuum 15811, ClientServerObjectManager 15360."
   ],
   "queries": [

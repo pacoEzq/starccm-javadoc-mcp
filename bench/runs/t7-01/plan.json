@@ -3,8 +3,8 @@
   "plan_version": 2,
   "status": "congelado",
   "frozen_on": "2026-09-06T21:00",
-  "frozen_by_commit": "881d8a0e9eb851c615c2bb762b3f9d478be26caa",
-  "question": "De las consultas que t7 preve hacer al servidor para generar las cinco macros de T7, cuales resuelven a la primera, cuales no, y cuantos caracteres devuelve cada una.",
+  "frozen_by_commit": "anterior al reinicio del historico, ver bench/README.md (History reset)",
+  "question": "De las consultas previstas al servidor para generar las cinco macros de T7, cuales resuelven a la primera, cuales no, y cuantos caracteres devuelve cada una.",
   "source_list": {
     "file": "T7-consultas-v2.md",
     "version": 2,
@@ -13,7 +13,7 @@
       "ubicacion": "recurso privado, fuera de este repo"
     },
     "auditoria": {
-      "file": "AUDITORIA_T7-consultas-provisional-v1_ghm.md",
+      "file": "recurso privado, fuera de este repo",
       "ubicacion": "recurso privado, fuera de este repo"
     }
   },
@@ -177,7 +177,7 @@
       "se_mide_con": "Q35 y Q41 en la jerarquia de reports; se observa tambien en Q02 con getSessionDir() y get(Class)",
       "consecuencia": "si el bloque se descarta, el modelo se queda sin la firma y ademas sin saber a que pagina ir despues. Es la medida mas valiosa para T7, porque la jerarquia de reports vive entera de metodos heredados",
       "estado": "no confirmada como defecto",
-      "aviso": "`lib/extract.mjs` existe en el tag series1 [V 2026-09-06, git ls-tree]. La pregunta de t7 se formula sobre el fichero correcto y se mide tal cual. Queda anulada la suposicion de ghm de que el tag llevaba un unico server.mjs con la extraccion en linea: salia del listado publicado en la Parte 2 de la Serie 1, que no es el repo."
+      "aviso": "`lib/extract.mjs` existe en el tag series1 [V 2026-09-06, git ls-tree]. La pregunta del banco se formula sobre el fichero correcto y se mide tal cual. Queda anulada la suposicion previa de que el tag llevaba un unico server.mjs con la extraccion en linea: salia del listado publicado en la Parte 2 de la Serie 1, que no es el repo."
     },
     {
       "id": "B-03",
@@ -1228,7 +1228,7 @@
       "pagina": "Simulation",
       "candidata_estrella": false,
       "tipo": "cobertura sin llamada",
-      "nota": "cero llamadas al servidor. La fila de la v1 sin id, promovida a id propio por ghm. Motivo: la cobertura no esta garantizada, porque Q02 lee 20.000 de 29.981 caracteres y los dos nombres pueden caer en el trozo cortado. Se puntua aparte y no entra en la numeracion Q01 a Q78 de t7",
+      "nota": "cero llamadas al servidor. La fila de la v1 sin id, promovida a id propio. Motivo: la cobertura no esta garantizada, porque Q02 lee 20.000 de 29.981 caracteres y los dos nombres pueden caer en el trozo cortado. Se puntua aparte y no entra en la numeracion Q01 a Q78 del banco",
       "aceptacion": "los dos nombres aparecen en el texto que devolvio Q02. Si no aparecen por truncado, el resultado es cobertura no lograda y la macro 2 necesita una llamada propia, que seria lista nueva"
     }
   ],

@@ -24,7 +24,7 @@ The file has no header row. It opens with the first call, seven tab separated fi
 
 ## History reset
 
-The history of this repository was reset on 2026-09-14: it now starts at a single root commit holding the tree as published. The previous `series1` tag pointed to tree `a8d1f007e3b1e523c5143884c6758db5e09832c1`, which is kept outside this repository. The tag of the same name now points to the root commit of the new history. Where a run plan compares against `this repo @series1`, it means the earlier tree.
+The history of this repository was reset on 2026-09-15: it now starts at a single root commit holding the tree as published. The previous `series1` tag pointed to an earlier tree, which is kept outside this repository. The tag of the same name now points to the root commit of the new history. Where a run plan compares against `this repo @series1`, it means the earlier tree.
 
 ## Plan schema version
 
