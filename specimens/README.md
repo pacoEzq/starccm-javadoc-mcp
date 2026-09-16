@@ -74,5 +74,7 @@ A second axis exists for a specimen that is a pair of macros for one task rather
 | `plane-table-export` | published | 2606 Build 21.04.007 | 25.0.1 | `compiles` | written against the Javadoc through this server | none (reserved, Agentic Macros) |
 | `plane-table-export` | fixed | 2606 Build 21.04.007 | 25.0.1 | `compiles` | same source, repaired by hand | none (reserved, Agentic Macros) |
 | `aero-forces-by-group` | published | 2606 Build 21.04.007 | 25.0.1 | `compiles` | written against the Javadoc through this server | none (reserved, Agentic Macros) |
+| `plane-table-export-ref` | grounded | 2606 Build 21.04.007 | 25.0.1 | `runs` | written against the Javadoc through this server | Series 1, Part 6 |
+| `plane-table-export-ref` | recorded | 2606 Build 21.04.007 | 25.0.1 | `runs` | recorded in the STAR-CCM+ GUI | Series 1, Part 6 |
 
 No row is filled from memory or by analogy with the row above it. A row is added only once its transcript has been captured.
