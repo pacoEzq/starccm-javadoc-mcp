@@ -1,0 +1,48 @@
+{
+  "run": "t7-gen-01",
+  "plan_version": 1,
+  "status": "congelado",
+  "frozen_on": "2026-09-18",
+  "frozen_by_commit": "el commit que introduce este fichero en este repo",
+  "question": "Que cuesta y que sale de generar la macro run_macro.java con un agente que solo tiene delante el servidor MCP del Javadoc. Esta corrida no puntua aciertos de API: registra coste, volumen leido y estado de compilacion de las dos versiones de la fuente.",
+  "environment": {
+    "build": "STAR-CCM+ 2606 Build 21.04.007, win64, Double Precision, maquina de referencia corporativa",
+    "javadoc": "el que acompana a esa build",
+    "javac": "javac 25.0.1, el que acompana a la build 21.04.007, en <STARCCM_HOME>/jdk/win64/jdk25.0.1/bin/javac.exe. No hay javac en PATH ni en JAVA_HOME [V 2026-09-16]",
+    "classpath": "469 jars bajo <STARCCM_HOME>/star/lib/java; StarMacro vive en starbase.jar [V 2026-09-16]",
+    "server": "el servidor instrumentado: server.mjs blob 1b0615be4eaba06d586f5f82b28454a946fb74b0 mas el arbol lib/ c37edeceaef36744c2fa37f7be8d79bd3941d364, lanzado desde un arbol de trabajo privado con git status --porcelain vacio en el momento de la corrida [V 2026-09-16, hashes remedidos 2026-09-18]. Mismos blob y arbol que en la corrida t7-01, y por tanto identicos byte a byte a los del tag series1 de este repo: ver t7-01/plan.json, clave server_vs_tag_series1. El log por llamada se activa con la variable de entorno STARCCM_MCP_LOG, leida en el propio server.mjs publicado, no por codigo distinto.",
+    "registro_mcp": "scope local, declarado dentro de la carpeta aislada de la corrida. STARCCM_MCP_LOG apunta a un log nuevo, mcp-t7-gen-01.tsv, fuera de este repo.",
+    "control_previo": "linea base del log NO_EXISTE a las 23:56:11 del 2026-09-16, antes de la primera llamada",
+    "control_positivo": "sonda search_api, query CoordinateSystem, kind all, limit 25: 3134 caracteres, 208 ms, meta {\"total\":1430,\"shown\":25}, version 2606, una linea de log [V 2026-09-16]",
+    "agente": "Claude Code 2.1.220, modelo opus (claude-opus-5), esfuerzo medio",
+    "get_doc_maxChars": 20000,
+    "search_api_limit_por_defecto": 25
+  },
+  "generacion": {
+    "entrada": "Prompt 1 v3 relleno, 13417 caracteres, lanzado sin cambios",
+    "llamadas": 70,
+    "caracteres_devueltos": 580496,
+    "volumen": "70 llamadas, no las 8 a 10 paginas que se preveian",
+    "parada": "la corrida la corto el operador con Esc",
+    "turno_de_cierre": "sin consultas: los huecos se cerraron desde macros propias ya ejecutadas, no desde la documentacion"
+  },
+  "resultado": {
+    "fuente_generada": "1241 lineas, 8 huecos declarados y 8 busquedas inferidas; compila limpia con javac 25.0.1 y -Xlint:deprecation, exit 0, sin salida [V 2026-09-17]",
+    "fuente_corregida": "1278 lineas, los 8 huecos cerrados; compila limpia, sin avisos [V 2026-09-17]",
+    "origen_de_los_huecos": "macros propias ya ejecutadas: vistas y convergencia de la pieza T6b y controles de malla de la T6 en 2606, sonda de la T5 en 2602",
+    "condicion_de_parada_b": "solo dispara si cd_asymptotic y cl_asymptotic estan los dos en uso y cumplidos, por decision del operador",
+    "frontera": "barrido de frontera sobre las dos fuentes: exit 1 en los nueve patrones [V 2026-09-17]"
+  },
+  "cost_declaration": {
+    "modo": "una sola sesion, sin sesiones pareadas",
+    "tramo_de_generacion": "8,65 USD y 27m 52s de API hasta pulsar Esc",
+    "sesion_completa": "12,01 USD, 38m 3s de API y 238,6k tokens de salida segun /cost. El transcript registra 37883; la diferencia se atribuye a compactaciones y queda sin verificar.",
+    "tope": "el tope de 7,29 USD se supero por decision del operador, tras el aviso del vigilante",
+    "server": "fila TSV por llamada del log nuevo de esta corrida: timestamp, tool, args, caracteres, ms, meta, version",
+    "session": "/cost al arrancar y al cerrar",
+    "aviso_comparabilidad": "los caracteres del log historico no son comparables entre fechas. Esta ficha solo compara dentro de la propia corrida y declara el servidor por el blob de server.mjs y el arbol de lib/."
+  },
+  "aislamiento": "carpeta aislada propia para la corrida, con su CLAUDE.md de 409 B y censo sin coincidencias [V 2026-09-16]. El transcript y el log de ejecucion no salen de la carpeta del operador: recurso privado, fuera de este repo.",
+  "especimen": "el par generado/corregido de run_macro.java con sus dos javac.txt. Declara el servidor instrumentado por el blob de server.mjs y el arbol de lib/, no por un commit de un arbol privado.",
+  "no_entra_en_esta_ficha": "el identificador de sesion del agente y la URL base de la API. Recurso privado, fuera de este repo."
+}
