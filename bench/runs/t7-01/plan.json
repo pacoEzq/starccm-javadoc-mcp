@@ -3,7 +3,7 @@
   "plan_version": 2,
   "status": "congelado",
   "frozen_on": "2026-09-06T21:00",
-  "frozen_by_commit": "anterior al reinicio del historico, ver bench/README.md (History reset)",
+  "frozen_by_content": "server.mjs blob 1b0615be4eaba06d586f5f82b28454a946fb74b0 and the lib/ tree c37edeceaef36744c2fa37f7be8d79bd3941d364. The commit that froze this run was removed by the history reset, so the freeze is declared by content, which is what stays verifiable against the public repo.",
   "question": "De las consultas previstas al servidor para generar las cinco macros de T7, cuales resuelven a la primera, cuales no, y cuantos caracteres devuelve cada una.",
   "source_list": {
     "file": "T7-consultas-v2.md",
