@@ -1,0 +1,58 @@
+{
+  "run": "t7-02",
+  "status": "abierto",
+  "purpose": "Two one-line measurements left open by the t7-01 bench, taken outside it.",
+  "measured_on": "2026-09-18",
+  "environment": {
+    "server": "server.mjs blob 1b0615be4eaba06d586f5f82b28454a946fb74b0 plus the lib/ tree c37edeceaef36744c2fa37f7be8d79bd3941d364",
+    "javadoc_version": "2606",
+    "transport": "direct stdio, no agent between the typed name and the server",
+    "log": "TSV written to a measurement folder outside the tree"
+  },
+  "cost_declaration": {
+    "server": "TSV rows written by the instrumented server",
+    "note": "character counts are what the server returned, not the number of calls"
+  },
+  "measurements": [
+    {
+      "id": "M-01",
+      "origin": "gap of Q59 in t7-01",
+      "typed_by_operator": "SolverElapsedTimeReport",
+      "args_sent": { "query": "SolverElapsedTimeReport" },
+      "args_resolved": { "query": "SolverElapsedTimeReport", "kind": "all", "limit": 25 },
+      "chars_returned": 41,
+      "total": 0,
+      "shown": 0,
+      "verdict": "no matches: the name the operator typed does not resolve in the 2606 Javadoc"
+    },
+    {
+      "id": "M-02",
+      "origin": "control for the inherited-members defect, public issue 1",
+      "typed_by_operator": "setIsUsed",
+      "args_sent": { "query": "setIsUsed" },
+      "args_resolved": { "query": "setIsUsed", "kind": "all", "limit": 25 },
+      "chars_returned": 250,
+      "total": 2,
+      "shown": 2,
+      "declaring_classes": [
+        "star.common.SolverStoppingCriterion",
+        "star.quickobjects.ConstructionObject"
+      ],
+      "verdict": "only declaring classes come back, no inheriting subclass: consistent with the defect described in issue 1"
+    }
+  ],
+  "control_probe": {
+    "note": "the control probe of the t7-01 run, recorded here because t7-01 is frozen",
+    "date": "2026-09-14",
+    "harness": "2.1.220",
+    "model": "claude-opus-5",
+    "effort": "medium",
+    "args_sent": { "query": "CoordinateSystem" },
+    "args_resolved": { "query": "CoordinateSystem", "kind": "all", "limit": 25 },
+    "types": 166,
+    "chars_returned": 3133,
+    "columns": 7,
+    "javadoc_version": "2606"
+  },
+  "caveat_tsv_order": "the TSV logs on call completion, not on call start: two calls issued in one session came back in reverse order. Pairing TSV rows against a transcript by timestamp is only safe when the calls do not overlap."
+}
