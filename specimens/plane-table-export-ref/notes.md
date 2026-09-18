@@ -29,7 +29,7 @@ The point of the pair is that identical output does not mean identical code. Mea
 | Set the plane origin | `getOriginCoordinate().setCoordinate(units, ...)` (line 45) | `setOrigin(new DoubleVector(...))` (line 116) |
 | Hold a field function | casts to `PrimitiveFieldFunction` (lines 57 and 63) | keeps `FieldFunction` |
 | Choose the input parts | `getInputParts().setObjects(region, boundaries)` (line 40) | absent |
-| Reset a part group | `getParts().setQuery(null)` (lines 26 and 52) | absent |
+| Reset a part group | `getInputParts().setQuery(null)` (line 26) and `getParts().setQuery(null)` (line 52) | absent |
 
 The first four are the divergences the post tabulates. The last two are not in that table and are recorded here because they were measured: the recording carries six call sites the grounded macro never emits, not four. A part group reset to a null query has no counterpart at all in a macro written from the documentation, because nothing on the page suggests it.
 
