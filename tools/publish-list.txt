@@ -44,3 +44,6 @@ bench/runs/despues-50000/bench-summary.json
 bench/runs/antes-20000/bench-calls.tsv
 bench/runs/colapso-50000/bench-calls.tsv
 bench/runs/despues-50000/bench-calls.tsv
+bench/runs/t7-01/plan.json
+bench/runs/t7-gen-01/plan.json
+bench/runs/t7-02/medidas_t7q.json
