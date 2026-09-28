@@ -1,5 +1,6 @@
 # Files derived from the private working repository into this one.
 # One path per line, relative to both roots. Anything not listed here stays private.
+# Exception: files native to this public repo, not derived from the private one, are not listed: tools/verificar-lista.mjs, README.md, LICENSE, .gitattributes, bench/README.md, specimens/. tools/verificar-lista.mjs enforces exactly this set.
 # Derivation: copy this list, run the grep gate for user paths and LLM trace fields,
 # then commit. Never copy a folder.
 server.mjs
