@@ -96,7 +96,8 @@ async function buildIndex() {
       if (!m || !m.l) continue;
       const pkg = m.p || "";
       const classUrl = (pkg ? pkg.replaceAll(".", "/") + "/" : "") + (m.c || "") + ".html";
-      members.push({ name: m.l, cls: m.c || "", pkg, url: classUrl + (m.u || "") });
+      // Member anchor needs its own "#" (Pitohuie-AIversion, PR 3).
+      members.push({ name: m.l, cls: m.c || "", pkg, url: classUrl + (m.u ? "#" + m.u : "") });
     }
   }
 
@@ -196,8 +197,28 @@ server.registerTool(
       return { content: [{ type: "text", text: "Refused: path is outside the Javadoc root." }], isError: true };
     }
 
+    if (!/\.html?$/i.test(full)) {
+      await logCall("get_doc", { docPath, maxChars }, 0, Date.now() - t0, { error: "path_refused" });
+      return { content: [{ type: "text", text: "Refused: only .html and .htm pages can be read." }], isError: true };
+    }
+
+    // Resolve symlinks and re-check containment on the real paths
+    // (Pitohuie-AIversion, PR 3).
+    let real;
+    try {
+      const rootReal = await fs.realpath(rootResolved);
+      real = await fs.realpath(full);
+      if (real !== rootReal && !real.startsWith(rootReal + path.sep)) {
+        await logCall("get_doc", { docPath, maxChars }, 0, Date.now() - t0, { error: "path_refused" });
+        return { content: [{ type: "text", text: "Refused: path is outside the Javadoc root." }], isError: true };
+      }
+    } catch {
+      await logCall("get_doc", { docPath, maxChars }, 0, Date.now() - t0, { error: "read_failed" });
+      return { content: [{ type: "text", text: `Could not read '${clean}'.` }], isError: true };
+    }
+
     let html;
-    try { html = await fs.readFile(full, "utf8"); }
+    try { html = await fs.readFile(real, "utf8"); }
     catch {
       await logCall("get_doc", { docPath, maxChars }, 0, Date.now() - t0, { error: "read_failed" });
       return { content: [{ type: "text", text: `Could not read '${clean}'.` }], isError: true };
