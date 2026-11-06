@@ -15,7 +15,7 @@ The Javadoc itself is not in this repository and never will be. It is Siemens do
 ## Requirements
 
 - Simcenter STAR-CCM+ with its Javadoc (typically under `<STAR-CCM+ install>\doc\...\client\html`). Measured against 2606 Build 21.04.007; the tool reads any modern Javadoc that ships `type-search-index.js` and `member-search-index.js`.
-- Node.js 18 or newer.
+- Node.js 22.23.4 or newer on the 22 line, or 24.22.1 or newer on the 24 line (18 and 20 are end-of-life).
 - Claude Code CLI (the server is registered with `claude mcp add`). Any MCP client that speaks stdio should work; only Claude Code has been tested.
 
 ## Setup in five steps
