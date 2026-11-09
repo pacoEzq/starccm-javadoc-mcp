@@ -215,13 +215,15 @@ server.registerTool(
     title: "Read STAR-CCM+ API doc page",
     description:
       "Return the readable text of a STAR-CCM+ Javadoc page (typically a class page) so you can see its method " +
-      "signatures and descriptions. Pass the relative path returned by search_api, e.g. 'star/common/Simulation.html'.",
+      "signatures and descriptions. Pass the relative path returned by search_api, e.g. 'star/common/Simulation.html'. " +
+      "If the result is truncated, its last line gives the offset to pass to read the rest without repeating the start.",
     inputSchema: {
       docPath: z.string().describe("Relative HTML path under the Javadoc root, e.g. 'star/common/Simulation.html'"),
-      maxChars: z.number().int().positive().optional().describe("Maximum characters to return (default 50000)")
+      maxChars: z.number().int().positive().optional().describe("Maximum characters to return (default 50000)"),
+      offset: z.number().int().nonnegative().optional().describe("Character offset to start from, as given by a truncated result (default 0)")
     }
   },
-  async ({ docPath, maxChars = 50000 }) => {
+  async ({ docPath, maxChars = 50000, offset }) => {
     const t0 = Date.now();
     const clean = docPath.split("#")[0];
     const rootResolved = path.resolve(JAVADOC_ROOT);
@@ -258,9 +260,14 @@ server.registerTool(
       return { content: [{ type: "text", text: `Could not read '${clean}'.` }], isError: true };
     }
 
-    const { text, out, truncated } = extractText(html, maxChars);
+    const { text } = extractText(html, Infinity);
+    const ini = Math.min(offset ?? 0, text.length);
+    const resto = text.slice(ini);
+    const truncated = resto.length > maxChars;
+    const out = truncated ? resto.slice(0, maxChars) + `\n\n...[truncated: ${ini + maxChars} of ${text.length} chars; call get_doc again with offset ${ini + maxChars} for the rest]` : resto;
 
     const meta = { htmlChars: html.length, textChars: text.length, maxChars, truncated };
+    if (offset !== undefined) meta.offset = offset;
     await logCall("get_doc", { docPath, maxChars }, out.length, Date.now() - t0, meta);
 
     return {
