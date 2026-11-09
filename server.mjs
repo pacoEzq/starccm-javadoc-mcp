@@ -73,6 +73,32 @@ async function walkHtml(dir, root, out) {
 // Non-class Javadoc pages to ignore in the filename fallback.
 const SKIP_HTML = /^(index|allclasses|allpackages|overview|package-|help-doc|constant-values|deprecated-list|serialized-form|search|element-list)/i;
 
+function claseMiembro(query, a, b, limit, types, members) {
+  const la = a.toLowerCase(), lb = b.toLowerCase();
+  let cls = types.filter(t => t.name.toLowerCase() === la);
+  if (!cls.length) cls = types.filter(t => t.name.toLowerCase().includes(la));
+  const lm = m => `[member] ${m.pkg ? m.pkg + "." : ""}${m.cls}.${m.name}  ->  ${m.url}`;
+  const lt = t => `[type]   ${t.pkg ? t.pkg + "." : ""}${t.name}  ->  ${t.url}`;
+  const tope = (n) => n > limit ? ` (showing first ${limit})` : "";
+  const claves = new Set(cls.map(t => t.pkg + "." + t.name));
+  const propios = members.filter(m => claves.has(m.pkg + "." + m.cls) && m.name.toLowerCase().includes(lb)).map(lm);
+  if (propios.length) {
+    const s = propios.slice(0, limit);
+    return { text: `${propios.length} match(es) for member "${b}" in class "${a}"${tope(propios.length)}:\n` + s.join("\n"), meta: { total: propios.length, shown: s.length, mode: "class-member", case: 1 } };
+  }
+  const otros = members.filter(m => m.name.toLowerCase().includes(lb)).map(lm);
+  const so = otros.slice(0, limit);
+  if (cls.length) {
+    const c = cls.slice(0, 3).map(lt);
+    const resto = otros.length ? `\n${otros.length} member(s) matching "${b}" declared in other classes${tope(otros.length)}:\n` + so.join("\n") : "";
+    return { text: `No member matching "${b}" is declared in class "${a}". It may be inherited: get_doc on the class page lists inherited members and their declaring classes.\n` + c.join("\n") + resto, meta: { total: c.length + otros.length, shown: c.length + so.length, mode: "class-member", case: 2 } };
+  }
+  const solo = types.filter(t => t.name.toLowerCase().includes(lb)).map(lt).concat(otros);
+  const s3 = solo.slice(0, limit);
+  const t3 = solo.length ? `No class matching "${a}"; ${solo.length} match(es) for "${b}" alone${tope(solo.length)}:\n` + s3.join("\n") : `No matches for "${query}".`;
+  return { text: t3, meta: { total: solo.length, shown: s3.length, mode: "class-member", case: 3 } };
+}
+
 async function buildIndex() {
   if (indexCache) return indexCache;
 
@@ -157,6 +183,14 @@ server.registerTool(
           out.push(`[member] ${m.pkg ? m.pkg + "." : ""}${m.cls}.${m.name}  ->  ${m.url}`);
         }
       }
+    }
+
+    // Two-word query with no hits: read it as "Class member".
+    const par = query.trim().split(/\s+/);
+    if (par.length === 2 && out.length === 0 && kind !== "type") {
+      const r = claseMiembro(query, par[0], par[1], limit, types, members);
+      await logCall("search_api", { query, kind, limit }, r.text.length, Date.now() - t0, r.meta);
+      return { content: [{ type: "text", text: r.text }], _meta: { log: r.meta } };
     }
 
     const total = out.length;
