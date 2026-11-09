@@ -10,7 +10,7 @@ Reference machine for every number in this repository: Simcenter STAR-CCM+ 2606 
 |---|---|---|
 | `runs/antes-20000/` | default cap 20,000 characters, before whitespace collapse | the "before" of Part 4 |
 | `runs/colapso-50000/` | whitespace collapse applied, cap 50,000 | effect of the collapse alone |
-| `runs/despues-50000/` | collapse plus cap 50,000 | the "after" |
+| `runs/despues-50000/` | cap 50,000, before whitespace collapse | the "after" of the cap change |
 
 Each run keeps `bench-calls.tsv` (one row per query: characters returned, milliseconds) and `bench-summary.json`. The per call server log (`mcp-calls.tsv`) is not published: it is a session log, not a result.
 
@@ -47,7 +47,7 @@ The public repository is derived from a private working repository on the refere
 | Pages saved by the list suppression | 28 of 224 | same | |
 | Pages above 20,000 after whitespace collapse | 144 | `tok/corpus-post-colapso-summary.json` (public) | collapse commit `a677897` |
 | Pages above 50,000 after collapse | 11 | same | 13 before collapse |
-| `Simulation`, raw HTML / extracted / `javap` | 201,275 / 29,981 / 7,920 | `salida-b/corpus-summary.json` and the 2026-08-03 session log | `get_doc` 29,981 is pre collapse; 29,779 after |
+| `Simulation`, raw HTML / extracted / `javap` | 201,275 / 29,981 / 7,920 | `salida-b/corpus-summary.json` and the 2026-08-03 session log | `get_doc` 29,981 is pre collapse (`runs/despues-50000/`); 26,898 after (`runs/colapso-50000/`) |
 | Grounding one class, `search_api` + `get_doc` | 33,316 chars | same | 3,335 + 29,981 |
 | Collapse effect on the benchmark | 10 to 12% fewer tokens | `bench/runs/colapso-50000/` (public) | 18 `get_doc` calls, cap 50,000; 6.6% fewer characters |
 | Characters per token, corpus wide, after collapse | 4.996 `o200k_base`, 4.621 Anthropic legacy | `tok/muestra-corpus.tsv` (public) | stratified sample of 513 classes, census denominator 134,600,475 characters |
