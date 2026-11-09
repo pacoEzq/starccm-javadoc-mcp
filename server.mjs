@@ -16,6 +16,7 @@ import { z } from "zod";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { extractText } from "./lib/extract.mjs";
+import { notebook } from "./lib/cuaderno.mjs";
 
 // Javadoc root: first CLI arg or STARCCM_DOC env var; exits with a clear error if neither.
 const _javadocArg = process.argv[2] || process.env.STARCCM_DOC;
@@ -168,6 +169,7 @@ server.registerTool(
     const t0 = Date.now();
     const { types, members } = await buildIndex();
     const q = query.toLowerCase();
+    await notebook.search(query, kind, types, members, JAVADOC_ROOT);
     const out = [];
 
     if (kind === "type" || kind === "all") {
@@ -261,6 +263,7 @@ server.registerTool(
     }
 
     const { text } = extractText(html, Infinity);
+    await notebook.page(clean, html);
     const ini = Math.min(offset ?? 0, text.length);
     const resto = text.slice(ini);
     const truncated = resto.length > maxChars;

@@ -34,6 +34,33 @@ The Javadoc itself is not in this repository and never will be. It is Siemens do
 
 Step by step, with the Windows pitfalls (the MSIX build of Claude Desktop silently ignores local MCP servers; PowerShell blocks `npx.ps1`; a cold `npx` start times out), see Part 2 of the first series below.
 
+## Optional: an API notebook that survives compaction
+
+When a long Claude Code session compacts its context, the model forgets which classes and methods it already looked up and fetches them again. Set `STARCCM_MCP_CUADERNO` (*cuaderno* is Spanish for notebook) to a folder and the server keeps one notebook file per project there: one line per class and method the session looked up, with its signature, return type and first sentence, or `No.` when the class does not have it. A fixed core of seven common pairs (`lib/cuaderno-nucleo.txt`) goes first; the rest is capped at 4,000 characters, oldest lines dropped first. The notebook never changes what `search_api` or `get_doc` return. Without the variable it does nothing.
+
+Register the server with the variable:
+
+```
+claude mcp add --scope user --env STARCCM_MCP_CUADERNO=<notebook-folder> starccm -- cmd /c node <path-to-repo>\server.mjs <path-to-javadoc>
+```
+
+Then add a `SessionStart` hook with matcher `compact` to your Claude Code user settings, so the notebook is read back in after each compaction:
+
+```json
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "compact",
+        "hooks": [
+          { "type": "command", "command": "node <path-to-repo>/tools/cuaderno-hook.mjs <notebook-folder>" }
+        ]
+      }
+    ]
+  }
+}
+```
+
 ## Measured cost
 
 All figures were measured on the reference machine (STAR-CCM+ 2606 Build 21.04.007, Node v20.14.0) in August 2026 with the instruments in `tools/`. The raw custody files live in `tok/` and `bench/`; the aggregated numbers and their provenance are in `bench/README.md`.
@@ -55,6 +82,9 @@ All figures were measured on the reference machine (STAR-CCM+ 2606 Build 21.04.0
 ```
 server.mjs              the MCP server: search_api and get_doc
 lib/extract.mjs         HTML to text extraction used by get_doc and by every instrument
+lib/resumen.mjs         minimal summary of a class page (methods, signatures, inherited members)
+lib/cuaderno*           the optional API notebook (off unless STARCCM_MCP_CUADERNO is set)
+tools/cuaderno-hook.mjs SessionStart hook that reads the notebook back in after compaction
 tools/                  measurement instruments (token factor, corpus sweep, collapse guards)
 sweep-corpus-*.mjs      corpus characterisation sweeps, one per criterion revision
 tok/                    custody files: measured outputs and the acceptance criteria that certify them

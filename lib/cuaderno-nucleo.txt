@@ -1,0 +1,7 @@
+NamedObject.setPresentationName: setPresentationName(String newValue): void
+ClientServerObjectManager.hasObject: hasObject(String name): T
+ClientServerObjectManager.setObjects: setObjects(Collection<? extends T> v): void; setObjects(T... objs): void
+ClientServerObjectManager.add: add(T o): void
+ClientServerObjectManager.getObjects: getObjects(): Collection<T>
+Monitor.getMonitorManager: getMonitorManager(): MonitorManager
+FieldMonitor.setObjects: setObjects(Collection<NamedObject> v): void

@@ -5,10 +5,15 @@
 # then commit. Never copy a folder.
 server.mjs
 lib/extract.mjs
+lib/resumen.mjs
+lib/cuaderno.mjs
+lib/cuaderno-ruta.mjs
+lib/cuaderno-nucleo.txt
 package.json
 package-lock.json
 .gitignore
 tools/canario-supresion.mjs
+tools/cuaderno-hook.mjs
 tools/diagnostico-90.mjs
 tools/disecar-z6.mjs
 tools/flatten-map.mjs
