@@ -10,6 +10,7 @@ const EXEMPT_EXACT = new Set([
   ".gitattributes",
   "LICENSE",
   "README.md",
+  "SECURITY.md",
   "bench/README.md",
   "tools/publish-list.txt",
   "tools/verificar-lista.mjs",
