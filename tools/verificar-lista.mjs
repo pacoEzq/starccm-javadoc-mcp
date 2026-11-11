@@ -8,6 +8,7 @@ import { readFileSync } from "node:fs";
 
 const EXEMPT_EXACT = new Set([
   ".gitattributes",
+  "CHANGELOG.md",
   "LICENSE",
   "README.md",
   "SECURITY.md",

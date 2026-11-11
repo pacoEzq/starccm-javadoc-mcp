@@ -4,6 +4,10 @@ A small MCP server that lets an AI assistant search and read the Simcenter STAR-
 
 This repository accompanies two tutorial series published on the Siemens Simcenter community forum. The forum renders client side and is hard to index; this README is the indexable table of contents.
 
+Latest change: an optional API notebook that survives context compaction, described [below](#optional-an-api-notebook-that-survives-compaction).
+
+Everything that changed since the `series1` tag is in [CHANGELOG.md](CHANGELOG.md).
+
 ## What it does
 
 `search_api` finds a class, interface, method or field by name in the Javadoc search index and returns the path to its page. `get_doc` returns that page as plain text: the class description and the Method Summary with exact signatures and any Deprecated tag. The AI asks, reads, then writes. Nothing is recited from memory.
