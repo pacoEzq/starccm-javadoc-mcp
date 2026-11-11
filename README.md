@@ -73,7 +73,7 @@ All figures were measured on the reference machine (STAR-CCM+ 2606 Build 21.04.0
 | Pages above 20,000 characters | 224 (0.95%) before whitespace collapse, 144 after |
 | Pages above 50,000 characters (the current default cap) | 11 after collapse |
 | `star.common.Simulation`: raw HTML / extracted text / `javap -public` | 201,275 / 29,981 / 7,920 characters |
-| Cost of grounding one class through `search_api` + `get_doc` | 33,316 characters, 3.8 times `javap` |
+| Cost of grounding one class through `search_api` + `get_doc` | 33,316 characters before whitespace collapse, 4.2 times `javap` |
 | Effect of whitespace collapse on the benchmark, in tokens | 10 to 12% fewer |
 | Characters per token, corpus wide, after collapse | 4.996 (`o200k_base`), 4.621 (Anthropic legacy tokenizer) |
 
