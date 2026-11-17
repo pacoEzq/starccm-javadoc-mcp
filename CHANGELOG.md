@@ -1,6 +1,16 @@
 # Changelog
 
-What changed in the server, newest first. Version numbers follow [Semantic Versioning](https://semver.org/): a new minor number adds features and keeps every existing setup working. Figures for what these changes save are left out on purpose: they will be added here once they are measured again against the current server.
+What changed in the server, newest first. Version numbers follow [Semantic Versioning](https://semver.org/): a new minor number adds features and keeps every existing setup working. What the 1.1 changes save, measured in November 2026, is in the README, [What the 1.1 changes save](README.md#what-the-11-changes-save).
+
+## 1.1.1 (2026-11-15)
+
+### "Class member" warns about inherited members more often (2026-11-13)
+
+When the class declares members whose names contain the one asked for, but none with exactly that name, `search_api` still lists them and now also warns that a member with exactly that name may be inherited, pointing to `get_doc` on the class page. Before, the warning appeared only when the class declared no matching member at all.
+
+### Class pages come back lighter: the side index is dropped (2026-11-15)
+
+`get_doc` now removes the side index (`nav.toc`) that Javadoc places beside each class page. It only lists again the sections and members that the page already contains, so nothing the page says is lost. The cut runs from the end of the top navigation bar to the start of the class data; if a page does not have exactly one of each, in that order, it is returned as before. On the Part 4 benchmark, `get_doc` returns 7.5% fewer characters.
 
 ## 1.1.0 (2026-11-11)
 

@@ -81,6 +81,19 @@ All figures were measured on the reference machine (STAR-CCM+ 2606 Build 21.04.0
 | Effect of whitespace collapse on the benchmark, in tokens | 10 to 12% fewer |
 | Characters per token, corpus wide, after collapse | 4.996 (`o200k_base`), 4.621 (Anthropic legacy tokenizer) |
 
+### What the 1.1 changes save
+
+Two measurements, made in November 2026 on the same machine and the same Javadoc. Each runs a fixed set of questions through the server as it was before 1.1 and through a build with the 1.1 changes, and counts the characters the assistant has to read. The two sets ask different things, so their results are given separately and never averaged.
+
+| Question set | Before 1.1 | With 1.1 | Fewer characters |
+|---|---|---|---|
+| The Part 4 benchmark: find a class and read its whole page (15 questions) | 439,414 | 420,075 | 4.4% |
+| Find the signature of one method in a given class (16 questions) | 281,576 in 32 calls | 4,107 in 16 calls | 98.5% |
+
+Why the two figures are so far apart. The first set makes both servers do the same work: look up the class, then read its full page. The only difference is that the newer server returns lighter pages, without the side index that lists the page's own sections a second time, and that is worth 4.4%. The second set lets each server reach the method by its shortest route. The older one has to open the class page and read it, tens of thousands of characters, to find one line. The newer one answers a query such as `Simulation getRegionManager` with one line from its index, and the page is never opened. Both found all 16 methods.
+
+That one line is the method name with its parameters. It does not include the return type or the description. When the assistant needs those, it still reads the page, and the cost moves back towards the first figure. Real sessions fall somewhere between the two numbers, depending on how often the name and parameters are enough.
+
 ## Layout
 
 ```

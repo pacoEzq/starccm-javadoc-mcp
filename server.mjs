@@ -85,7 +85,11 @@ function claseMiembro(query, a, b, limit, types, members) {
   const propios = members.filter(m => claves.has(m.pkg + "." + m.cls) && m.name.toLowerCase().includes(lb)).map(lm);
   if (propios.length) {
     const s = propios.slice(0, limit);
-    return { text: `${propios.length} match(es) for member "${b}" in class "${a}"${tope(propios.length)}:\n` + s.join("\n"), meta: { total: propios.length, shown: s.length, mode: "class-member", case: 1 } };
+    const base = n => n.split("(")[0].toLowerCase();
+    const exacto = members.some(m => claves.has(m.pkg + "." + m.cls) && base(m.name) === lb);
+    const txt = `${propios.length} match(es) for member "${b}" in class "${a}"${tope(propios.length)}:\n` + s.join("\n");
+    if (!exacto) return { text: `No member named exactly "${b}" is declared in class "${a}". It may be inherited: get_doc on the class page lists inherited members and their declaring classes.\n` + txt, meta: { total: propios.length, shown: s.length, mode: "class-member", case: 4 } };
+    return { text: txt, meta: { total: propios.length, shown: s.length, mode: "class-member", case: 1 } };
   }
   const otros = members.filter(m => m.name.toLowerCase().includes(lb)).map(lm);
   const so = otros.slice(0, limit);
