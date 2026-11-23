@@ -1,16 +1,16 @@
 # starccm-javadoc-mcp
 
-A small MCP server that lets an AI assistant search and read the Simcenter STAR-CCM+ Java API documentation (Javadoc) that ships with your own installation, so the macros it writes use real, current API calls instead of invented ones. Two tools, `search_api` and `get_doc`, plus the instruments used to measure and reduce what the server costs in tokens.
+A small MCP server that lets an AI assistant search and read the Simcenter STAR-CCM+ Java API documentation (Javadoc) that ships with your own installation, so the macros it writes use real, current API calls instead of invented ones. Two tools, `search_api` and `get_doc`, an optional third, `compile`, plus the instruments used to measure and reduce what the server costs in tokens.
 
 This repository accompanies two tutorial series published on the Siemens Simcenter community forum. The forum renders client side and is hard to index; this README is the indexable table of contents.
 
-Latest change: an optional API notebook that survives context compaction, described [below](#optional-an-api-notebook-that-survives-compaction).
+Latest change: an optional `compile` tool that runs the `javac` shipped with STAR-CCM+ on a macro and returns its verdict, described [below](#optional-compile-a-macro-with-javac).
 
 Everything that changed since the `series1` tag is in [CHANGELOG.md](CHANGELOG.md).
 
 ## What it does
 
-`search_api` finds a class, interface, method or field by name in the Javadoc search index and returns the path to its page. `get_doc` returns that page as plain text: the class description and the Method Summary with exact signatures and any Deprecated tag. The AI asks, reads, then writes. Nothing is recited from memory.
+`search_api` finds a class, interface, method or field by name in the Javadoc search index and returns the path to its page. `get_doc` returns that page as plain text: the class description and the Method Summary with exact signatures and any Deprecated tag. The AI asks, reads, then writes. Nothing is recited from memory. With the optional `compile` tool, the AI also compiles the macro it wrote and reads the `javac` verdict itself.
 
 **Limitation.** Members are listed only under the class that declares them, not under subclasses that inherit them, so a missing subclass in the results does not mean the method is unavailable there; `get_doc` on the subclass page lists its inherited members and their declaring classes. Measured on STAR-CCM+ 2606, 267 of 794 API calls (33.6 %) in 10 GUI recordings and 5 generated macros use a method that `search_api` does not list under the receiver's class ([issue #1](https://github.com/pacoEzq/starccm-javadoc-mcp/issues/1)). Indexing inherited members is tracked in [issue #2](https://github.com/pacoEzq/starccm-javadoc-mcp/issues/2).
 
@@ -65,6 +65,24 @@ Then add a `SessionStart` hook with matcher `compact` to your Claude Code user s
 }
 ```
 
+## Optional: compile a macro with javac
+
+`compile` runs the `javac` that ships with STAR-CCM+ on a `.java` file already written on disk, against the STAR-CCM+ classpath, and returns the verdict. The first line is always `exit <code>`: `exit 0` means it compiled, and silence after it is success. The `javac` diagnostics follow verbatim. Nothing compiled is executed, and no STAR-CCM+ licence is needed.
+
+Claude Code can already run `javac` from its own shell, so there you do not need the tool. It is for MCP clients without a shell, and for letting a model compile without approving shell commands one by one.
+
+The tool is exposed only when two variables are set; without them the server starts, says so on stderr, and offers `search_api` and `get_doc` only. No paths are guessed:
+
+- `STARCCM_JDK`: the `bin` folder of the JDK that ships with STAR-CCM+, for example `<STAR-CCM+ install>\jdk\win64\<jdk>\bin`.
+- `STARCCM_CLASSPATH`: `<STAR-CCM+ install>\STAR-CCM+<version>\star\lib\java\platform\modules\ext\*`.
+- `STARCCM_WORKDIRS` (optional): folders, separated like `PATH`, outside which `compile` refuses to run.
+
+```
+claude mcp add --scope user --env STARCCM_JDK=<jdk-bin> --env STARCCM_CLASSPATH=<ext-folder>\* starccm -- cmd /c node <path-to-repo>\server.mjs <path-to-javadoc>
+```
+
+The tool takes one argument, `path`, the absolute path of the `.java` file. It does not accept code as text or extra `javac` flags; `javac` is started without a shell and the class files go to a temporary folder. After 120 s `javac` is killed and the answer is `exit timeout`. Output beyond 30,000 characters ends with a `[truncated: ...]` note instead of a silent cut. `tools/verificar-compile.mjs` checks the tool through a real MCP client.
+
 ## Measured cost
 
 All figures were measured on the reference machine (STAR-CCM+ 2606 Build 21.04.007, Node v20.14.0) in August 2026 with the instruments in `tools/`. The raw custody files live in `tok/` and `bench/`; the aggregated numbers and their provenance are in `bench/README.md`.
@@ -97,11 +115,13 @@ That one line is the method name with its parameters. It does not include the re
 ## Layout
 
 ```
-server.mjs              the MCP server: search_api and get_doc
+server.mjs              the MCP server: search_api, get_doc and the optional compile
+lib/compile.mjs         the compile tool: javac without a shell, fixed arguments
 lib/extract.mjs         HTML to text extraction used by get_doc and by every instrument
 lib/resumen.mjs         minimal summary of a class page (methods, signatures, inherited members)
 lib/cuaderno*           the optional API notebook (off unless STARCCM_MCP_CUADERNO is set)
 tools/cuaderno-hook.mjs SessionStart hook that reads the notebook back in after compaction
+tools/verificar-compile.mjs checks the compile tool through a real MCP stdio client
 tools/                  measurement instruments (token factor, corpus sweep, collapse guards)
 sweep-corpus-*.mjs      corpus characterisation sweeps, one per criterion revision
 tok/                    custody files: measured outputs and the acceptance criteria that certify them

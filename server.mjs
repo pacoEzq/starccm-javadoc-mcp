@@ -17,6 +17,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { extractText } from "./lib/extract.mjs";
 import { notebook } from "./lib/cuaderno.mjs";
+import { compileConfig, runCompile } from "./lib/compile.mjs";
 
 // Javadoc root: first CLI arg or STARCCM_DOC env var; exits with a clear error if neither.
 const _javadocArg = process.argv[2] || process.env.STARCCM_DOC;
@@ -149,7 +150,7 @@ async function buildIndex() {
   return indexCache;
 }
 
-const server = new McpServer({ name: "starccm", version: "0.1.0" });
+const server = new McpServer({ name: "starccm", version: "1.2.0" });
 
 server.registerTool(
   "search_api",
@@ -283,6 +284,29 @@ server.registerTool(
     };
   }
 );
+
+// compile: only exposed when STARCCM_JDK and STARCCM_CLASSPATH are set (no guessed defaults).
+const compileCfg = await compileConfig();
+if (compileCfg.ok) {
+  server.registerTool(
+    "compile",
+    {
+      title: "Compile a STAR-CCM+ macro with javac",
+      description:
+        "Compile an existing .java file with the javac shipped with STAR-CCM+, against the STAR-CCM+ classpath. " +
+        "Pass the absolute path of the file already written on disk; the code is not accepted as text and no flags can be passed. " +
+        "The result always starts with 'exit <code>' on the first line (exit 0 = compiled; silence after it is success), " +
+        "followed by the javac diagnostics verbatim. 'exit timeout' means javac was killed after 120 s. " +
+        "Nothing compiled is executed.",
+      inputSchema: {
+        path: z.string().describe("Absolute path of the .java file to compile")
+      }
+    },
+    async ({ path: p }) => runCompile(compileCfg, p)
+  );
+} else {
+  process.stderr.write(`starccm: compile tool not exposed: ${compileCfg.reason}\n`);
+}
 
 const transport = new StdioServerTransport();
 await server.connect(transport);

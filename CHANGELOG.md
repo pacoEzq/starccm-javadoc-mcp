@@ -2,6 +2,20 @@
 
 What changed in the server, newest first. Version numbers follow [Semantic Versioning](https://semver.org/): a new minor number adds features and keeps every existing setup working. What the 1.1 changes save, measured in November 2026, is in the README, [What the 1.1 changes save](README.md#what-the-11-changes-save).
 
+## 1.2.0 (2026-11-23)
+
+### Optional `compile` tool (2026-11-23)
+
+`compile` runs the `javac` shipped with STAR-CCM+ on a `.java` file already on disk and returns `exit <code>` on the first line, then the `javac` diagnostics verbatim. It is exposed only when `STARCCM_JDK` and `STARCCM_CLASSPATH` are set; `STARCCM_WORKDIRS` can restrict the folders it accepts. No shell, no extra flags, nothing compiled is executed, 120 s timeout. Setup in the README, [Optional: compile a macro with javac](README.md#optional-compile-a-macro-with-javac).
+
+### The server reports its real version (2026-11-23)
+
+The MCP handshake said `0.1.0`; it now says `1.2.0`, the package version.
+
+### Dependencies (2026-11-17)
+
+`hono` 4.13.19 and `@hono/node-server` 2.1.9, pulled in by the MCP SDK. The server only uses the stdio transport and never loaded them; the update clears the seven Dependabot alerts.
+
 ## 1.1.1 (2026-11-15)
 
 ### "Class member" warns about inherited members more often (2026-11-13)

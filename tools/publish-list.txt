@@ -9,6 +9,7 @@ lib/resumen.mjs
 lib/cuaderno.mjs
 lib/cuaderno-ruta.mjs
 lib/cuaderno-nucleo.txt
+lib/compile.mjs
 package.json
 package-lock.json
 .gitignore
@@ -25,6 +26,7 @@ tools/recon-zonas.mjs
 tools/segmentar-pagina.mjs
 tools/tok-selftest.mjs
 tools/verificar-colapso.mjs
+tools/verificar-compile.mjs
 sweep-corpus-b.mjs
 sweep-corpus-c.mjs
 sweep-corpus-c2.mjs
