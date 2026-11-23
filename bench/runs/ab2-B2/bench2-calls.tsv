@@ -1,0 +1,17 @@
+pos	id	clase	tool	args	chars	truncado	error
+C01	Q01	FieldFunctionManager	search_api	{"query":"FieldFunctionManager createFieldFunction"}	184	false	false
+C02	Q02	PartManager	search_api	{"query":"PartManager childOrder"}	139	false	false
+C03	Q03	AnalysisReport	search_api	{"query":"AnalysisReport applyRepresentation"}	238	false	false
+C04	Q04	AreaAverageReport	search_api	{"query":"AreaAverageReport supportsSurfaceRep"}	183	false	false
+C05	Q05	Boundary	search_api	{"query":"Boundary canRename"}	128	false	false
+C06	Q06	VectorReport	search_api	{"query":"VectorReport getCoordinateSystem"}	170	false	false
+C07	Q07	TableManager	search_api	{"query":"TableManager applyRepresentation"}	222	false	false
+C08	Q08	Simulation	search_api	{"query":"Simulation asJournal"}	134	false	false
+C09	Q09	Report	search_api	{"query":"Report allowsMultipleInstances"}	160	false	false
+C10	Q10	GlobalParameterManager	search_api	{"query":"GlobalParameterManager createGlobalParameter"}	885	false	false
+C11	Q10	ClientServerObjectManager	search_api	{"query":"ClientServerObjectManager add"}	555	false	false
+C12	Q11	Continuum	search_api	{"query":"Continuum add"}	379	false	false
+C13	Q12	ThresholdPart	search_api	{"query":"ThresholdPart getEstimatedNumberOfCells"}	169	false	false
+C14	Q13	PlaneProbePart	search_api	{"query":"PlaneProbePart createEditor"}	146	false	false
+C15	Q14	AutoMeshOperation	search_api	{"query":"AutoMeshOperation executeSurfaceMeshers"}	181	false	false
+C16	Q15	UserFieldFunction	search_api	{"query":"UserFieldFunction excludeFromSummaryReport"}	234	false	false

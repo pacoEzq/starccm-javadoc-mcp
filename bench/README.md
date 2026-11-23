@@ -11,8 +11,27 @@ Reference machine for every number in this repository: Simcenter STAR-CCM+ 2606 
 | `runs/antes-20000/` | default cap 20,000 characters, before whitespace collapse | the "before" of Part 4 |
 | `runs/colapso-50000/` | whitespace collapse applied, cap 50,000 | effect of the collapse alone |
 | `runs/despues-50000/` | cap 50,000, before whitespace collapse | the "after" of the cap change |
+| `runs/ab1-A1/`, `runs/ab1-A2/` | this repository at `df16abc`, before the 1.1 changes | the 15 questions of Part 4, two identical runs |
+| `runs/ab1-B1/`, `runs/ab1-B2/` | a build with the 1.1 changes (`75ce7be` in the private working repository) | the same 15 questions, two identical runs |
+| `runs/ab2-A1/`, `runs/ab2-A2/` | `df16abc` | find one method's signature in a given class, 16 questions, two identical runs |
+| `runs/ab2-B1/`, `runs/ab2-B2/` | the 1.1 build | the same 16 questions, two identical runs |
 
 Each run keeps `bench-calls.tsv` (one row per query: characters returned, milliseconds) and `bench-summary.json`. The per call server log (`mcp-calls.tsv`) is not published: it is a session log, not a result.
+
+## The 1.1 comparison
+
+The root README quotes two figures for what the 1.1 changes save. The per call files behind them are the `ab1-*` and `ab2-*` runs, measured on 2026-11-12 with the reference machine above and `STARCCM_MCP_VENTANA=0`. Each side ran twice. The characters of the two runs are identical; only the millisecond columns differ.
+
+| Question set | Files | Before 1.1 (`df16abc`) | With 1.1 | Fewer |
+|---|---|---|---|---|
+| Part 4, find a class and read its page, 15 questions | `bench-calls.tsv`, `bench-summary.json` | 439,414 characters in 54 calls | 420,075 in 54 | 4.4% |
+| Signature of one method, 16 questions | `bench2-calls.tsv`, `bench2-summary.json` | 281,576 in 32 calls | 4,107 in 16 | 98.5% |
+
+To check them: in `ab1-*` add up the `chars` column of `bench-calls.tsv`, which has 54 rows (the 36 calls of the questions plus 18 lookups that find each class first). In `ab2-*` add up the `chars` column of `bench2-calls.tsv` over every row except `search_api(resolve)`. The older server needs one such lookup per question, 16 in all, 131,797 characters, and that lookup is not counted in the 281,576. The newer server needs none. The two sets are counted differently on that point, which is why they are never averaged.
+
+Two things in these files read like failures and are not. First, the `canario_rescatada` and `canario_no_rescatada` lines in the `ab1-B*` summaries say `FALLO`. The canary values were fixed on the pages as the older server returns them (`Simulation` 26,898 characters, `PartManager` 50,016 and truncated). The 1.1 server returns lighter pages, 23,268 and 46,945 with no truncation, so the check cannot pass; the cause is the side index that 1.1 drops. Second, the first column of `ab2-*` files numbers the questions `C01` to `C16` by position, because the question file repeats the id `Q10`.
+
+The files are the originals with one change: their line endings were converted from CRLF to LF. An earlier build of the 1.1 side, which lacked a fix already present here, was also measured and is not published; it was replaced by the build above before the figures were taken. The per call server logs (`mcp-calls.tsv`) of these runs are not published either, for the reason given under the runs table.
 
 ## The per call server log
 

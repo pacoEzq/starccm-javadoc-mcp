@@ -112,6 +112,8 @@ Why the two figures are so far apart. The first set makes both servers do the sa
 
 That one line is the method name with its parameters. It does not include the return type or the description. When the assistant needs those, it still reads the page, and the cost moves back towards the first figure. Real sessions fall somewhere between the two numbers, depending on how often the name and parameters are enough.
 
+The per call files and how to add the totals up are in [bench/README.md](bench/README.md#the-11-comparison).
+
 ## Layout
 
 ```

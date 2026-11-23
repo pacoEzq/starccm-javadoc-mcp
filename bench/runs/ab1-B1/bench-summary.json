@@ -1,0 +1,152 @@
+{
+  "generado": "2026-11-12T16:46:33.069Z",
+  "server_commit": "75ce7be",
+  "starccm_version": "2606 Build 21.04.007",
+  "node": "v20.14.0",
+  "queries_revision": 3,
+  "plan_schema": "javadoc-mcp-bench-plan/3",
+  "cap_declarado": 50000,
+  "canario_rescatada": "canario rescatada: FALLO, Simulation entrego 23268 truncado=false, esperado 26898 truncado=false",
+  "canario_no_rescatada": "canario no rescatada: FALLO, PartManager entrego 46945 truncado=false, esperado 50016 truncado=true",
+  "barrido_ms": 1558,
+  "clases_sin_resolver": [],
+  "llamadas": 54,
+  "chars_flujo_total": 283872,
+  "por_consulta": [
+    {
+      "id": "Q01",
+      "role": "control",
+      "llamadas_flujo": 2,
+      "chars_flujo": 17934,
+      "chars_get_doc": 14128,
+      "chars_andamiaje": 1130,
+      "truncadas": 0
+    },
+    {
+      "id": "Q02",
+      "role": "treatment-cap-unrescued",
+      "llamadas_flujo": 2,
+      "chars_flujo": 50150,
+      "chars_get_doc": 46945,
+      "chars_andamiaje": 1365,
+      "truncadas": 0
+    },
+    {
+      "id": "Q03",
+      "role": "control",
+      "llamadas_flujo": 2,
+      "chars_flujo": 11011,
+      "chars_get_doc": 9443,
+      "chars_andamiaje": 568,
+      "truncadas": 0
+    },
+    {
+      "id": "Q04",
+      "role": "control",
+      "llamadas_flujo": 2,
+      "chars_flujo": 8369,
+      "chars_get_doc": 7334,
+      "chars_andamiaje": 228,
+      "truncadas": 0
+    },
+    {
+      "id": "Q05",
+      "role": "control",
+      "llamadas_flujo": 4,
+      "chars_flujo": 19033,
+      "chars_get_doc": 15439,
+      "chars_andamiaje": 28655,
+      "truncadas": 0
+    },
+    {
+      "id": "Q06",
+      "role": "control",
+      "llamadas_flujo": 2,
+      "chars_flujo": 10039,
+      "chars_get_doc": 9123,
+      "chars_andamiaje": 322,
+      "truncadas": 0
+    },
+    {
+      "id": "Q07",
+      "role": "control",
+      "llamadas_flujo": 2,
+      "chars_flujo": 12579,
+      "chars_get_doc": 9332,
+      "chars_andamiaje": 852,
+      "truncadas": 0
+    },
+    {
+      "id": "Q08",
+      "role": "treatment-cap",
+      "llamadas_flujo": 2,
+      "chars_flujo": 26604,
+      "chars_get_doc": 23268,
+      "chars_andamiaje": 33814,
+      "truncadas": 0
+    },
+    {
+      "id": "Q09",
+      "role": "control",
+      "llamadas_flujo": 2,
+      "chars_flujo": 18108,
+      "chars_get_doc": 15674,
+      "chars_andamiaje": 56545,
+      "truncadas": 0
+    },
+    {
+      "id": "Q10",
+      "role": "control",
+      "llamadas_flujo": 4,
+      "chars_flujo": 28801,
+      "chars_get_doc": 21497,
+      "chars_andamiaje": 840,
+      "truncadas": 0
+    },
+    {
+      "id": "Q11",
+      "role": "control",
+      "llamadas_flujo": 2,
+      "chars_flujo": 16052,
+      "chars_get_doc": 13446,
+      "chars_andamiaje": 4126,
+      "truncadas": 0
+    },
+    {
+      "id": "Q12",
+      "role": "control",
+      "llamadas_flujo": 2,
+      "chars_flujo": 11449,
+      "chars_get_doc": 9477,
+      "chars_andamiaje": 176,
+      "truncadas": 0
+    },
+    {
+      "id": "Q13",
+      "role": "control",
+      "llamadas_flujo": 2,
+      "chars_flujo": 10815,
+      "chars_get_doc": 9251,
+      "chars_andamiaje": 266,
+      "truncadas": 0
+    },
+    {
+      "id": "Q14",
+      "role": "control",
+      "llamadas_flujo": 4,
+      "chars_flujo": 31393,
+      "chars_get_doc": 25698,
+      "chars_andamiaje": 6850,
+      "truncadas": 0
+    },
+    {
+      "id": "Q15",
+      "role": "control",
+      "llamadas_flujo": 2,
+      "chars_flujo": 11535,
+      "chars_get_doc": 9320,
+      "chars_andamiaje": 466,
+      "truncadas": 0
+    }
+  ]
+}
