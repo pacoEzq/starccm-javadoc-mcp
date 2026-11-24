@@ -1,6 +1,6 @@
 # wall-yplus-audit
 
-A one click wall y+ audit. It walks every wall boundary, computes the area averaged and the maximum wall y+ for each, and flags any wall outside the band the wall treatment expects. It was written against the Javadoc through this server and closes Part 6 of the first tutorial series, where it carries the point that a real API is not the same as a correct macro.
+A one click wall y+ audit. It walks every wall boundary, computes the area averaged and the maximum wall y+ for each, and flags any wall outside the band the wall treatment expects. It was written against the Javadoc through this server for the earlier version of Part 6 of the first tutorial series. That part was redesigned as a stress test of a different macro (see `plane-table-export-ref`), so this specimen is cited only by [Agentic Macros, Part 1](https://community.sw.siemens.com/s/question/0D5Vb00001gGHQnKAO/simcenter-starccm-agentic-macros-17-compile-by-hand-read-the-real-errors), where it carries the point that a real API is not the same as a correct macro.
 
 ## The defect in the published version
 
