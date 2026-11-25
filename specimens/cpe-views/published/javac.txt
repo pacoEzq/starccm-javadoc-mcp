@@ -1,0 +1,24 @@
+# javac 25.0.1 (JDK shipped with STAR-CCM+, <STAR-CCM+ install>\jdk\win64\jdk25.0.1)
+# classpath: <STAR-CCM+ install>\star\lib\java\platform\modules\ext\*  (Simcenter STAR-CCM+ 2606 Build 21.04.007)
+cpe_views.java:202: warning: [removal] setValue(double) in ParallelScale has been deprecated and marked for removal
+        ((ParallelScale) scene.getCurrentView().getParallelScale()).setValue(scale);
+                                                                   ^
+cpe_views.java:287: error: cannot find symbol
+        if (!(part instanceof star.common.NamedObject)) {
+                                         ^
+  symbol:   class NamedObject
+  location: package star.common
+cpe_views.java:290: error: cannot find symbol
+        star.common.NamedObject no = (star.common.NamedObject) part;
+                   ^
+  symbol:   class NamedObject
+  location: package star.common
+cpe_views.java:290: error: cannot find symbol
+        star.common.NamedObject no = (star.common.NamedObject) part;
+                                                 ^
+  symbol:   class NamedObject
+  location: package star.common
+Note: cpe_views.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+3 errors
+1 warning

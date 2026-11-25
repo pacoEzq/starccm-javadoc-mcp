@@ -61,6 +61,8 @@ A second axis exists for a specimen that is a pair of macros for one task rather
 
 **A machine path in the source is redacted, and the redaction is declared.** A specimen carries no user names, so a literal such as an output folder is replaced by its placeholder form. This is permitted only for a literal that takes no part in compilation. The transcript is captured again after the change, and `notes.md` records the line, the original SHA256 and the new one. Any edit that could alter what the compiler sees is not a redaction, and a file needing one is not a specimen.
 
+**A comment may leave the source, and its removal is declared.** A comment takes no part in compilation, so it may be removed when it labels or cites private material. No line of code changes. The transcript is captured again on the edited file, and `notes.md` lists the removed lines, the original SHA256 and the new one.
+
 **A defect in the server is an issue, not a comment.** If a specimen exists because the server returned a name that does not resolve, a signature that misleads, or a page that was cut, open an issue in this repository and link it from the index row. The issue is the part readers of the series can see.
 
 **A specimen is added in its own commit**, with the transcript, so the record and the evidence arrive together.
@@ -76,5 +78,6 @@ A second axis exists for a specimen that is a pair of macros for one task rather
 | `aero-forces-by-group` | published | 2606 Build 21.04.007 | 25.0.1 | `compiles` | written against the Javadoc through this server | [Agentic Macros, Part 1](https://community.sw.siemens.com/s/question/0D5Vb00001gGHQnKAO/simcenter-starccm-agentic-macros-17-compile-by-hand-read-the-real-errors) |
 | `plane-table-export-ref` | grounded | 2606 Build 21.04.007 | 25.0.1 | `runs` | written against the Javadoc through this server | Series 1, Part 6 |
 | `plane-table-export-ref` | recorded | 2606 Build 21.04.007 | 25.0.1 | `runs` | recorded in the STAR-CCM+ GUI | Series 1, Part 6 |
+| `cpe-views` | published | 2606 Build 21.04.007 | 25.0.1 | `does-not-compile` | written from earlier macros and the Javadoc through this server, as its removed header stated (see `notes.md`) | none (reserved, Agentic Macros) |
 
 No row is filled from memory or by analogy with the row above it. A row is added only once its transcript has been captured.
